@@ -16,6 +16,7 @@ package com.naman14.timberx.playback
 
 import android.content.ComponentName
 import android.content.Context
+import android.media.browse.MediaBrowser
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
@@ -23,7 +24,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.lifecycle.MutableLiveData
 import com.naman14.timberx.models.QueueData
-
 interface MediaSessionConnection {
     val isConnected: MutableLiveData<Boolean>
     val rootMediaId: String
@@ -58,7 +58,7 @@ class RealMediaSessionConnection(
     override val transportControls: MediaControllerCompat.TransportControls
         get() = mediaController.transportControls
 
-    private val mediaBrowserConnectionCallback = MediaBrowserConnectionCallback(context)
+    private val mediaBrowserConnectionCallback = broMediaBrowserConnectionCallback(context)
     private val mediaBrowser = MediaBrowserCompat(context,
             serviceComponent,
             mediaBrowserConnectionCallback, null)
@@ -72,7 +72,7 @@ class RealMediaSessionConnection(
         mediaBrowser.unsubscribe(parentId, callback)
     }
 
-    private inner class MediaBrowserConnectionCallback(private val context: Context)
+    private inner class broMediaBrowserConnectionCallback(private val context: Context)
         : MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
             mediaController = MediaControllerCompat(context, mediaBrowser.sessionToken).apply {

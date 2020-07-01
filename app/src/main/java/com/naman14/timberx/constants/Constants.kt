@@ -42,4 +42,11 @@ object Constants {
     const val ACTION_NEXT = "action_next"
     const val ACTION_PREVIOUS = "action_previous"
     const val APP_PACKAGE_NAME = "com.naman14.timberx"
+    const val OPEN_PLAYER_VM_MUSIC = "vn.vm.music.open"
+    const val SEARCH_PLAYER_VM_MUSIC = "vn.vm.music.search"
+
+    const val NEXT_PLAYER_VM_MUSIC = "vn.vm.music.next"
+    const val PREVIOUS_PLAYER_VM_MUSIC = "vn.vm.music.previous"
+
+
 }

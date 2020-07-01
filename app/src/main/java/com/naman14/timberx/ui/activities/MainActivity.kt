@@ -21,10 +21,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore.EXTRA_MEDIA_TITLE
 import android.provider.MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH
+import android.util.Log
+import android.util.SparseArray
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.NonNull
 import androidx.mediarouter.app.MediaRouteButton
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import com.afollestad.rxkprefs.Pref
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
@@ -34,6 +39,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
 import com.naman14.timberx.PREF_APP_THEME
 import com.naman14.timberx.R
 import com.naman14.timberx.constants.AppThemes
+import com.naman14.timberx.constants.Constants.NEXT_PLAYER_VM_MUSIC
+import com.naman14.timberx.constants.Constants.OPEN_PLAYER_VM_MUSIC
+import com.naman14.timberx.constants.Constants.PREVIOUS_PLAYER_VM_MUSIC
 import com.naman14.timberx.databinding.MainActivityBinding
 import com.naman14.timberx.extensions.*
 import com.naman14.timberx.models.MediaID
@@ -75,6 +83,28 @@ class MainActivity : PermissionsActivity(), DeleteSongDialog.OnSongDeleted {
         }
 
         setupUI()
+        val youtubeLink = "https://youtube.com/watch?v=fNk_zzaMoSs"
+        var extractor = object : YouTubeExtractor(this) {
+            override fun onExtractionComplete(ytFiles: SparseArray<YtFile>?, videoMeta: VideoMeta?) {
+
+                if (ytFiles == null) {
+                    finish()
+                    return
+                }
+                for (i in 0 until ytFiles.size()) {
+                    val itag: Int = ytFiles.keyAt(i)
+                    // get the object by the key.
+                    val file: YtFile = ytFiles.get(itag)
+                    if (videoMeta != null) {
+                        Log.d("YtFile",file.url)
+                    }
+
+                    //
+
+                }
+
+            }
+        }.extract(youtubeLink,true,true)
     }
 
     fun setBottomSheetListener(bottomSheetListener: BottomSheetListener) {
@@ -170,6 +200,12 @@ class MainActivity : PermissionsActivity(), DeleteSongDialog.OnSongDeleted {
         if (intent == null || intent.action == null) return
 
         when (intent.action!!) {
+            OPEN_PLAYER_VM_MUSIC -> {
+                val songTitle = intent.extras?.getString(EXTRA_MEDIA_TITLE, null)
+
+                viewModel.transportControls().playFromSearch(songTitle, null)
+            }
+
             INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH -> {
                 val songTitle = intent.extras?.getString(EXTRA_MEDIA_TITLE, null)
                 viewModel.transportControls().playFromSearch(songTitle, null)

@@ -31,17 +31,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="vn.vm.music.search" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.MUSIC_PLAYER" />
 
-                <category android:name="android.intent.category.APP_MUSIC" />
+                <category android:name="ndroid.intent.category.APP_MUSIC" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="vn.vm.music.open"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -52,6 +65,7 @@
                 <data android:mimeType="application/x-ogg" />
                 <data android:mimeType="application/itunes" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -64,6 +78,7 @@
                 <data android:mimeType="application/x-ogg" />
                 <data android:mimeType="application/itunes" />
             </intent-filter>
+
             <intent-filter android:priority="-1">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -87,7 +102,19 @@
             android:exported="true">
 
             <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+
+            <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="vm.music.startservice" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="vn.vm.music.next"/>
+                <action android:name="vn.vm.music.previous"/>
             </intent-filter>
         </service>
 

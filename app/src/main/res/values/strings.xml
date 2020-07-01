@@ -1,64 +1,64 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="songs">Songs</string>
+    <string name="songs">Bài Hát</string>
     <string name="albums">Albums</string>
-    <string name="artists">Artists</string>
+    <string name="artists">Ca Sĩ </string>
     <string name="genres">Genres</string>
     <string name="folders">Folders</string>
     <string name="playlists">Playlists</string>
 
     <string name="play">Play</string>
-    <string name="add_to_playlist">Add to Playlist</string>
-    <string name="go_to_album">Go to Album</string>
-    <string name="go_to_artist">Go to Artist</string>
-    <string name="play_next">Play next</string>
-    <string name="delete_from_device">Delete from Device</string>
+    <string name="add_to_playlist">Tạo Playlist</string>
+    <string name="go_to_album">Đi đến Album</string>
+    <string name="go_to_artist">Đi đến Artist</string>
+    <string name="play_next">Bài kế tiếp</string>
+    <string name="delete_from_device">Xoá khỏi Device</string>
 
     <string name="sort_order_entry_az">A-Z</string>
     <string name="sort_order_entry_za">Z-A</string>
     <string name="sort_order_entry_year">Year</string>
     <string name="sort_order_entry_duration">Duration</string>
-    <string name="sort_order_entry_number_of_songs">Number of songs</string>
+    <string name="sort_order_entry_number_of_songs">Số lượng bài hát</string>
 
-    <string name="number_song_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> song added to playlist.</string>
-    <string name="number_songs_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> songs added to playlist.</string>
+    <string name="number_song_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> Bài hát đã được thêm vào playlist</string>
+    <string name="number_songs_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> Bài hát đã được thêm vào playlist</string>
 
-    <string name="create">Create</string>
-    <string name="delete">Delete</string>
+    <string name="create">Tạo</string>
+    <string name="delete">Xoá</string>
 
-    <string name="create_new_playlist">Create New Playlist</string>
-    <string name="delete_song_prompt">Delete Song?</string>
-    <string name="enter_playlist_name">Enter playlist name…</string>
-    <string name="playlist_created">Playlist created!</string>
-    <string name="unable_create_playlist">Unable to create playlist!</string>
+    <string name="create_new_playlist">Tạo Playlist</string>
+    <string name="delete_song_prompt">Xoá bài hát ?</string>
+    <string name="enter_playlist_name">Nhập tên playlist…</string>
+    <string name="playlist_created">Playlist đã được tạo !</string>
+    <string name="unable_create_playlist">Không thể tạo  playlist!</string>
 
     <string name="media_playback">Media Playback</string>
     <string name="media_playback_controls">Media playback controls</string>
 
-    <string name="all_songs">All Songs</string>
+    <string name="all_songs">Tất cả bài hát</string>
     <string name="casting_to_x">Casting to %1$s</string>
     <string name="nothing_playing">Nothing playing</string>
     <string name="now_playing_format">%1$s | %2$s</string>
 
     <string name="queue_ended">Queue ended</string>
-    <string name="no_song_next">No song up next</string>
+    <string name="no_song_next">Không có bài hát kế tiếp</string>
 
-    <string name="play_song_error">Unable to play song</string>
+    <string name="play_song_error">Không thể play đc bài hát</string>
     <string name="shuffle_no_songs_error">There\'s no songs to shuffle</string>
-    <string name="new_playlist">New Playlist</string>
+    <string name="new_playlist">Tạo Playlist</string>
     <string name="lyrics">Lyrics</string>
     <string name="up_next">Up Next</string>
-    <string name="no_results">No Results</string>
-    <string name="search_hint">Search for songs, artists, albums…</string>
+    <string name="no_results">Không có dữ liệu </string>
+    <string name="search_hint">Tìm kiếm bài hát, ca sĩ , album....</string>
 
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="black">Black</string>
 
-    <string name="settings">Settings</string>
+    <string name="settings">Tuỳ chọn</string>
     <string name="choose_start_page">Choose the start page to be displayed on launch.</string>
     <string name="start_page">Start page</string>
-    <string name="choose_theme">Select the theme to be used throughout the app</string>
+    <string name="choose_theme">Chọn 1 theme để sử dụng</string>
     <string name="theme">Theme</string>
 
     <string name="load_artist_image">Last.fm artist images</string>

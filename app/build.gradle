@@ -94,7 +94,7 @@ dependencies {
     implementation "org.koin:koin-android:${versions.koin}"
     implementation "org.koin:koin-androidx-scope:${versions.koin}"
     implementation "org.koin:koin-androidx-viewmodel:${versions.koin}"
-
+    implementation "com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT"
     // Debug
     implementation "com.jakewharton.timber:timber:${versions.timber}"
     debugImplementation "com.amitshekhar.android:debug-db:${versions.debugDb}"

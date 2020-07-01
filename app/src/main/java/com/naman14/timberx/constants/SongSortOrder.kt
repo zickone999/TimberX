@@ -13,7 +13,6 @@
  *
  */
 package com.naman14.timberx.constants
-
 import android.provider.MediaStore
 
 enum class SongSortOrder(val rawValue: String) {

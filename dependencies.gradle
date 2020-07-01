@@ -6,7 +6,7 @@ ext.versions = [
         versionName       : "1.6",
 
         // Plugins
-        gradlePlugin      : "3.3.1",
+        gradlePlugin      : '3.6.1',
         googleServices    : "4.2.0",
         fabric            : "1.27.0",
         spotlessPlugin    : "3.17.0",
@@ -67,5 +67,6 @@ ext.versions = [
         androidxTestRunner: "1.1.1",
         androidxTest      : "1.1.0",
         archTesting       : "2.0.0",
-        espresso          : "3.0.2"
+        espresso          : "3.0.2",
+        youtubeExtractor :  "com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT"
 ]

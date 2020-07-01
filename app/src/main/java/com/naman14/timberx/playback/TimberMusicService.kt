@@ -16,11 +16,13 @@ package com.naman14.timberx.playback
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID
 import android.support.v4.media.session.PlaybackStateCompat.STATE_NONE
+import android.view.KeyEvent
 import androidx.annotation.Nullable
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
@@ -53,6 +55,7 @@ import com.naman14.timberx.repository.PlaylistRepository
 import com.naman14.timberx.repository.SongsRepository
 import com.naman14.timberx.util.Utils.EMPTY_ALBUM_ART_URI
 import io.reactivex.functions.Consumer
+import io.reactivex.internal.operators.flowable.FlowableRepeatWhen
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
@@ -146,10 +149,52 @@ class TimberMusicService : MediaBrowserServiceCompat(), KoinComponent, Lifecycle
             return START_STICKY
         }
 
+
+
         val mediaSession = player.getSession()
         val controller = mediaSession.controller
 
         when (intent.action) {
+            Intent.ACTION_MEDIA_BUTTON -> {
+                val keyEvent : KeyEvent = intent.getExtras().get(Intent.EXTRA_KEY_EVENT) as KeyEvent
+                if (keyEvent.action != KeyEvent.ACTION_DOWN) { return START_STICKY }
+                when (keyEvent.keyCode) {
+                    KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> {
+                        controller.playbackState?.let { playbackState ->
+                            when {
+                                playbackState.isPlaying -> controller.transportControls.pause()
+                                playbackState.isPlayEnabled -> controller.transportControls.play()
+                            }
+                        }
+                    }
+                    KeyEvent.KEYCODE_MEDIA_PLAY -> {
+                        controller.transportControls.play()
+                    }
+                    KeyEvent.KEYCODE_MEDIA_PAUSE -> {
+                        controller.transportControls.pause()
+                    }
+                    KeyEvent.KEYCODE_MEDIA_NEXT -> {
+                        controller.transportControls.skipToNext()
+                    }
+                    KeyEvent.KEYCODE_MEDIA_PREVIOUS -> {
+                        controller.transportControls.skipToPrevious()
+                    }
+                }
+
+            }
+            Constants.SEARCH_PLAYER_VM_MUSIC -> {
+                val songTitle = intent.extras?.getString(MediaStore.EXTRA_MEDIA_TITLE, null)
+                controller.transportControls.playFromSearch(songTitle, null)
+            }
+            Constants.NEXT_PLAYER_VM_MUSIC -> {
+                controller.transportControls.skipToNext()
+            }
+
+            Constants.PREVIOUS_PLAYER_VM_MUSIC -> {
+                controller.transportControls.skipToPrevious()
+            }
+
+
             Constants.ACTION_PLAY_PAUSE -> {
                 controller.playbackState?.let { playbackState ->
                     when {
