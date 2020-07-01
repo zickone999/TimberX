@@ -184,6 +184,8 @@ class TimberMusicService : MediaBrowserServiceCompat(), KoinComponent, Lifecycle
             }
             Constants.SEARCH_PLAYER_VM_MUSIC -> {
                 val songTitle = intent.extras?.getString(MediaStore.EXTRA_MEDIA_TITLE, null)
+                controller.transportControls.stop()
+                controller.transportControls.prepare()
                 controller.transportControls.playFromSearch(songTitle, null)
             }
             Constants.NEXT_PLAYER_VM_MUSIC -> {
