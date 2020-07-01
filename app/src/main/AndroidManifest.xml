@@ -100,7 +100,6 @@
             android:name=".playback.TimberMusicService"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
