@@ -113,6 +113,8 @@
             <intent-filter>
                 <action android:name="vn.vm.music.next"/>
                 <action android:name="vn.vm.music.previous"/>
+                <action android:name="vn.vm.music.play"/>
+                <action android:name="vn.vm.music.pause"/>
             </intent-filter>
         </service>
 

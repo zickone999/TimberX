@@ -47,6 +47,6 @@ object Constants {
 
     const val NEXT_PLAYER_VM_MUSIC = "vn.vm.music.next"
     const val PREVIOUS_PLAYER_VM_MUSIC = "vn.vm.music.previous"
-
-
+    const val PLAY_VM_MUSIC = "vn.vm.music.play"
+    const val PAUSE_VM_MUSIC = "vn.vm.music.pause"
 }

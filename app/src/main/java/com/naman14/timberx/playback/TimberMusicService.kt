@@ -194,6 +194,13 @@ class TimberMusicService : MediaBrowserServiceCompat(), KoinComponent, Lifecycle
                 controller.transportControls.skipToPrevious()
             }
 
+            Constants.PLAY_VM_MUSIC -> {
+                controller.transportControls.play()
+            }
+
+            Constants.PAUSE_VM_MUSIC -> {
+                controller.transportControls.pause()
+            }
 
             Constants.ACTION_PLAY_PAUSE -> {
                 controller.playbackState?.let { playbackState ->
