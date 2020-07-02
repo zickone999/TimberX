@@ -22,6 +22,7 @@ import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID
 import android.support.v4.media.session.PlaybackStateCompat.STATE_NONE
+import android.util.Log
 import android.view.KeyEvent
 import androidx.annotation.Nullable
 import androidx.core.net.toUri
@@ -37,11 +38,7 @@ import com.naman14.timberx.constants.Constants.ACTION_PREVIOUS
 import com.naman14.timberx.constants.Constants.APP_PACKAGE_NAME
 import com.naman14.timberx.db.QueueEntity
 import com.naman14.timberx.db.QueueHelper
-import com.naman14.timberx.extensions.attachLifecycle
-import com.naman14.timberx.extensions.isPlayEnabled
-import com.naman14.timberx.extensions.isPlaying
-import com.naman14.timberx.extensions.toIDList
-import com.naman14.timberx.extensions.toRawMediaItems
+import com.naman14.timberx.extensions.*
 import com.naman14.timberx.models.MediaID
 import com.naman14.timberx.models.MediaID.Companion.CALLER_OTHER
 import com.naman14.timberx.models.MediaID.Companion.CALLER_SELF
@@ -64,6 +61,7 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.standalone.KoinComponent
+import timber.log.Timber
 import timber.log.Timber.d as log
 
 // TODO pull out media logic to separate class to make this more readable
@@ -184,9 +182,10 @@ class TimberMusicService : MediaBrowserServiceCompat(), KoinComponent, Lifecycle
             }
             Constants.SEARCH_PLAYER_VM_MUSIC -> {
                 val songTitle = intent.extras?.getString(MediaStore.EXTRA_MEDIA_TITLE, null)
-                controller.transportControls.stop()
-                controller.transportControls.prepare()
+                controller.transportControls.pause()
+                controller.transportControls.prepareFromSearch(songTitle, null)
                 controller.transportControls.playFromSearch(songTitle, null)
+                controller.transportControls.play()
             }
             Constants.NEXT_PLAYER_VM_MUSIC -> {
                 controller.transportControls.skipToNext()

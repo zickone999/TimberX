@@ -42,6 +42,7 @@ import com.naman14.timberx.constants.AppThemes
 import com.naman14.timberx.constants.Constants.NEXT_PLAYER_VM_MUSIC
 import com.naman14.timberx.constants.Constants.OPEN_PLAYER_VM_MUSIC
 import com.naman14.timberx.constants.Constants.PREVIOUS_PLAYER_VM_MUSIC
+import com.naman14.timberx.constants.Constants.SEARCH_PLAYER_VM_MUSIC
 import com.naman14.timberx.databinding.MainActivityBinding
 import com.naman14.timberx.extensions.*
 import com.naman14.timberx.models.MediaID
@@ -206,7 +207,7 @@ class MainActivity : PermissionsActivity(), DeleteSongDialog.OnSongDeleted {
                 viewModel.transportControls().playFromSearch(songTitle, null)
             }
 
-            INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH -> {
+            SEARCH_PLAYER_VM_MUSIC -> {
                 val songTitle = intent.extras?.getString(EXTRA_MEDIA_TITLE, null)
                 viewModel.transportControls().playFromSearch(songTitle, null)
             }
