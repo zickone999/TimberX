@@ -1,6 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="songs">Bài Hát</string>
+    <string name="ytSongs">Nhạc từ Youtube</string>
     <string name="albums">Albums</string>
     <string name="artists">Ca Sĩ </string>
     <string name="genres">Genres</string>

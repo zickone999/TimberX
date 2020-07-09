@@ -50,6 +50,26 @@ class SearchViewModel(
             }
 
             launch {
+                val youtubeSongs = mutableListOf<Song>()
+                youtubeSongs.add(Song().apply {
+                    id = 9990
+                    title = "Youtube S1"
+                })
+                youtubeSongs.add(Song().apply {
+                    id = 9991
+                    title = "Youtube S2"
+                })
+                youtubeSongs.add(Song().apply {
+                    id = 9992
+                    title = "Youtube S3"
+                })
+
+                searchData.youtubeSongs = youtubeSongs
+
+                _searchLiveData.postValue(searchData)
+            }
+
+            launch {
                 val albums = withContext(IO) {
                     albumsRepository.getAlbums(query, 7)
                 }
@@ -76,13 +96,15 @@ class SearchViewModel(
     data class SearchData(
         var songs: MutableList<Song> = mutableListOf(),
         var albums: MutableList<Album> = mutableListOf(),
-        var artists: MutableList<Artist> = mutableListOf()
+        var artists: MutableList<Artist> = mutableListOf(),
+        var youtubeSongs: MutableList<Song> = mutableListOf()
     ) {
 
         fun clear(): SearchData {
             songs.clear()
             albums.clear()
             artists.clear()
+            youtubeSongs.clear()
             return this
         }
     }

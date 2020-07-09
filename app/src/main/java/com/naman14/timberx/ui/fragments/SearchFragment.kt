@@ -33,14 +33,11 @@ import com.naman14.timberx.extensions.toSongIds
 import com.naman14.timberx.ui.adapters.AlbumAdapter
 import com.naman14.timberx.ui.adapters.ArtistAdapter
 import com.naman14.timberx.ui.adapters.SongsAdapter
+import com.naman14.timberx.ui.adapters.YoutubeSongsAdapter
 import com.naman14.timberx.ui.fragments.base.BaseNowPlayingFragment
 import com.naman14.timberx.ui.viewmodels.SearchViewModel
 import com.naman14.timberx.util.AutoClearedValue
-import kotlinx.android.synthetic.main.fragment_search.btnBack
-import kotlinx.android.synthetic.main.fragment_search.etSearch
-import kotlinx.android.synthetic.main.fragment_search.rvAlbums
-import kotlinx.android.synthetic.main.fragment_search.rvArtist
-import kotlinx.android.synthetic.main.fragment_search.rvSongs
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : BaseNowPlayingFragment() {
@@ -50,6 +47,7 @@ class SearchFragment : BaseNowPlayingFragment() {
     private lateinit var songAdapter: SongsAdapter
     private lateinit var albumAdapter: AlbumAdapter
     private lateinit var artistAdapter: ArtistAdapter
+    private lateinit var youtubeSongAdapter: YoutubeSongsAdapter
 
     var binding by AutoClearedValue<FragmentSearchBinding>(this)
 
@@ -71,6 +69,14 @@ class SearchFragment : BaseNowPlayingFragment() {
         rvSongs.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = songAdapter
+        }
+
+        youtubeSongAdapter = YoutubeSongsAdapter().apply {
+            popupMenuListener = mainViewModel.popupMenuListener
+        }
+        youtubeSongs.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = youtubeSongAdapter
         }
 
         albumAdapter = AlbumAdapter()
@@ -114,6 +120,7 @@ class SearchFragment : BaseNowPlayingFragment() {
             songAdapter.updateData(searchData.songs)
             albumAdapter.updateData(searchData.albums)
             artistAdapter.updateData(searchData.artists)
+            youtubeSongAdapter.updateData(searchData.youtubeSongs)
         }
 
         binding.let {
