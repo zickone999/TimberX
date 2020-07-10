@@ -14,9 +14,11 @@
  */
 package com.naman14.timberx.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,7 @@ import com.naman14.timberx.ui.adapters.YoutubeSongsAdapter
 import com.naman14.timberx.ui.fragments.base.BaseNowPlayingFragment
 import com.naman14.timberx.ui.viewmodels.SearchViewModel
 import com.naman14.timberx.util.AutoClearedValue
+import com.naman14.timberx.youtube.YoutubePlayerActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -77,6 +80,13 @@ class SearchFragment : BaseNowPlayingFragment() {
         youtubeSongs.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = youtubeSongAdapter
+        }
+        youtubeSongs.addOnItemClick { position: Int, _: View ->
+            youtubeSongAdapter.getSongForPosition(position)?.let { song ->
+                val intent = Intent(context, YoutubePlayerActivity::class.java)
+                intent.putExtra("YTMusic", song.album)
+                startActivity(intent)
+            }
         }
 
         albumAdapter = AlbumAdapter()

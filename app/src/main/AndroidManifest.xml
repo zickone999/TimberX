@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".TimberXApp"
@@ -94,7 +95,7 @@
 
         <activity android:name=".ui.activities.ExpandedControlsActivity" />
         <activity android:name=".ui.activities.SettingsActivity"/>
-
+        <activity android:name="com.naman14.timberx.youtube.YoutubePlayerActivity" />
         <service
             android:name=".playback.TimberMusicService"
             android:enabled="true"
