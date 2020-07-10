@@ -57,11 +57,6 @@ class SearchViewModel(
                 }
                 if (youtubeSongs.isNotEmpty()) {
                     searchData.youtubeSongs = youtubeSongs.toMutableList()
-                    searchData.youtubeSongs.add(Song().apply {
-                        title = "Phan Anh đẹp trai"
-                        artist = "Anh Phan ADL"
-                        duration = 239000
-                    })
                 }
 
                 _searchLiveData.postValue(searchData)

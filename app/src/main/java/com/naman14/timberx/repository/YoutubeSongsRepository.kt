@@ -26,8 +26,13 @@ import com.naman14.timberx.models.MediaID
 import com.naman14.timberx.models.Song
 import android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI as AUDIO_URI
 import android.provider.BaseColumns._ID
+import android.util.Log
+import org.json.JSONArray
+import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
 
 interface YoutubeSongsRepository {
 
@@ -92,18 +97,47 @@ class YoutubeRealSongsRepository(
     }
 
     override fun searchSongs(searchString: String, limit: Int): List<Song> {
-        val result = makeSongCursor("title LIKE ?", arrayOf("$searchString%"))
-                .mapList(true) { Song.fromCursor(this) }
-        if (result.size < limit) {
-            val moreSongs = makeSongCursor("title LIKE ?", arrayOf("%_$searchString%"))
-                    .mapList(true) { Song.fromCursor(this) }
-            result += moreSongs
+        var result = mutableListOf<Song>()
+
+        val apiKey = "AIzaSyBQbjDpxbWb6fV8Ytz5dmWlyoAS1mm3E9U"
+        val part = "snippet"
+        val url = URL("https://www.googleapis.com/youtube/v3/search?part=$part&maxResults=$limit&q=$searchString&type=video&key=$apiKey")
+
+        with(url.openConnection() as HttpURLConnection) {
+            requestMethod = "GET"
+
+            Log.d("xDebug", "\nSent 'GET' request to URL : $url; Response Code : $responseCode")
+
+            inputStream.bufferedReader().use {
+                val response = StringBuffer()
+
+                var inputLine = it.readLine()
+                while (inputLine != null) {
+                    response.append(inputLine)
+                    inputLine = it.readLine()
+                }
+
+                val json = response.toString()
+                val jsonObject = JSONObject(json)
+
+                val items = JSONArray(jsonObject["items"].toString())
+
+                for (i in 0 until items.length()) {
+                    val obj = items.getJSONObject(i)
+                    val videoId = obj.optJSONObject("id").optString("videoId").toString()
+                    val videoTitle = obj.optJSONObject("snippet").optString("title").toString()
+                    val channelTitle = obj.optJSONObject("snippet").optString("channelTitle").toString()
+
+                    result.add(Song().apply {
+                        title = videoTitle
+                        artist = channelTitle
+                        album = videoId
+                    })
+                }
+            }
         }
-        return if (result.size < limit) {
-            result
-        } else {
-            result.subList(0, limit)
-        }
+
+        return result
     }
 
     // TODO a lot of operations are done here without verifying results,
