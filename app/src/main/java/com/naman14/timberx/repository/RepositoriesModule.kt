@@ -25,6 +25,10 @@ val repositoriesModule = module {
     } bind SongsRepository::class
 
     factory {
+        YoutubeRealSongsRepository(get(), get(name = PREF_SONG_SORT_ORDER))
+    } bind YoutubeSongsRepository::class
+
+    factory {
         RealAlbumRepository(get(), get(name = PREF_ALBUM_SORT_ORDER))
     } bind AlbumRepository::class
 

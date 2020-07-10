@@ -24,7 +24,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        SearchViewModel(get(), get(), get())
+        SearchViewModel(get(), get(), get(), get())
     }
 
     viewModel { (mediaId: MediaID) ->

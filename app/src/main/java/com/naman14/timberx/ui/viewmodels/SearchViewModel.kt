@@ -21,6 +21,7 @@ import com.naman14.timberx.models.Song
 import com.naman14.timberx.repository.AlbumRepository
 import com.naman14.timberx.repository.ArtistRepository
 import com.naman14.timberx.repository.SongsRepository
+import com.naman14.timberx.repository.YoutubeSongsRepository
 import com.naman14.timberx.ui.viewmodels.base.CoroutineViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -29,7 +30,8 @@ import kotlinx.coroutines.withContext
 class SearchViewModel(
     private val songsRepository: SongsRepository,
     private val albumsRepository: AlbumRepository,
-    private val artistsRepository: ArtistRepository
+    private val artistsRepository: ArtistRepository,
+    private val youtubeSongsRepository: YoutubeSongsRepository
 ) : CoroutineViewModel(Main) {
 
     private val searchData = SearchData()
@@ -41,7 +43,7 @@ class SearchViewModel(
         if (query.length >= 3) {
             launch {
                 val songs = withContext(IO) {
-                    songsRepository.searchSongs(query, 10)
+                    songsRepository.searchSongs(query, 3)
                 }
                 if (songs.isNotEmpty()) {
                     searchData.songs = songs.toMutableList()
@@ -50,21 +52,17 @@ class SearchViewModel(
             }
 
             launch {
-                val youtubeSongs = mutableListOf<Song>()
-                youtubeSongs.add(Song().apply {
-                    id = 9990
-                    title = "Youtube S1"
-                })
-                youtubeSongs.add(Song().apply {
-                    id = 9991
-                    title = "Youtube S2"
-                })
-                youtubeSongs.add(Song().apply {
-                    id = 9992
-                    title = "Youtube S3"
-                })
-
-                searchData.youtubeSongs = youtubeSongs
+                val youtubeSongs = withContext(IO) {
+                    youtubeSongsRepository.searchSongs(query, 20)
+                }
+                if (youtubeSongs.isNotEmpty()) {
+                    searchData.youtubeSongs = youtubeSongs.toMutableList()
+                    searchData.youtubeSongs.add(Song().apply {
+                        title = "Phan Anh đẹp trai"
+                        artist = "Anh Phan ADL"
+                        duration = 239000
+                    })
+                }
 
                 _searchLiveData.postValue(searchData)
             }
